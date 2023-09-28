@@ -7,3 +7,87 @@
 //TODO: when all the questions are answered then the game is over
 //TODO: display score at end
 //TODO: create input that user can save his/her initials and score 
+var timeLeft = 60;
+var timerEl = document.getElementById("scoreTimer");
+var timerId = setInterval(countdown, 1000);
+
+function countdown() {
+    if (timeLeft === 0) {
+        clearTimeout(timerId);
+    }
+    else  {
+        timerEl = timeLeft + "Seconds Remaining";
+        timeLeft--;
+    }
+}
+
+var questions = [
+    {
+        question: "Commonly used data types DO Not Include:",
+        answers: [
+            {text: "strings", correct: false},
+            {text: "booleans", correct: false},
+            {text: "alerts", correct: true},
+            {text: "numbers", correct: false},
+        ] 
+    },
+    {
+        question: "The condition in an if / else statement is enclosed with __________.",
+        answers: [
+            {text: "quotes", correct: false},
+            {text: "curly brackets", correct: true},
+            {text: "parenthesis", correct: false},
+            {text: "square brackets", correct: false},
+        ] 
+    }, 
+    {  
+        question: "Arrays in JavaScript can be used to store __________.",
+        answers: [
+            {text: "numbers and strings", correct: false},
+            {text: "other arrays", correct: false},
+            {text: "booleans", correct: false},
+            {text: "all of the above ", correct: true}, 
+        ] 
+    },
+    {
+        question: "String values must be enclosed within __________ when being assigned to variables.",
+        answers: [
+            {text: "commas", correct: false},
+            {text: "curly brackets", correct: false},
+            {text: "quotes", correct: true},
+            {text: "parenthesis", correct: false}, 
+        ] 
+    },
+    {
+        question: "A very useful tool used during development and debugging for printing content to the debugger is:",
+        answers: [
+            {text: "JavaScript", correct: false},
+            {text: "terminal/bash", correct: false},
+            {text: "for loops", correct: false},
+            {text: "console.log", correct: true},
+        ]
+    }
+] 
+
+var currentQuestionIndex = 0;
+var score = 60;
+
+function startQuiz() {
+    currentQuestionIndex = 0;
+    score = 60;
+    showQuestion();
+}
+
+function showQuestion() {
+    var currentQuestion = questions[currentQuestionIndex];
+    var questionNumber = currentQuestionIndex +1;
+    questionElement.innerHTML = questionNumber + ". " + currentQuestion.question;
+    currentQuestion.answers.forEach(answer => {
+        
+        var button = document.createElement("answerButtons");
+        button.innerHTML = answer.text;
+        button.classList.add("banswerButton");
+        answerButton.appendChild(button);
+    })
+}
+
