@@ -7,19 +7,43 @@
 //TODO: when all the questions are answered then the game is over
 //TODO: display score at end
 //TODO: create input that user can save his/her initials and score 
-var timeLeft = 60;
-var timerEl = document.getElementById("scoreTimer");
-var timerId = setInterval(countdown, 1000);
 
-function countdown() {
-    if (timeLeft === 0) {
-        clearTimeout(timerId);
+
+
+
+
+
+var timerEl = document.querySelector(".scoreTimer");
+var countDownEl = document.getElementById("countDown");
+var secondsLeft = 60;
+
+var startButton = document.querySelector(".startButton")
+
+
+function startTimer() {
+  var timerInterval = setInterval(function() {
+    secondsLeft--;
+    timerEl.textContent = "Time: " + secondsLeft;
+
+    if(secondsLeft === 0) {
+      clearInterval(timerInterval);
+      endGame();
+//TODO: create if statement to end game function
     }
-    else  {
-        timerEl = timeLeft + "Seconds Remaining";
-        timeLeft--;
-    }
+
+  }, 1000);
 }
+
+
+function endGame() {
+      
+}
+
+//TODO: add event listener for "start quiz" button to start timer on click 
+startButton.addEventListener("click", startTimer);
+
+
+
 
 var questions = [
     {
