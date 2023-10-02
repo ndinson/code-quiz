@@ -2,16 +2,17 @@
     //TODO: start button must start a timer
     //TODO: start button must present a question
 //TODO: present another question when user answers the previous one
-//TODO: create function that subtracts time from clock when answer is wrong
+
 //TODO: when the timer reaches 0 then the game is over
 //TODO: when all the questions are answered then the game is over
 //TODO: display score at end
 //TODO: create input that user can save his/her initials and score 
+//TODO: create function that subtracts ten seconds from score/ timer when answer is wrong
+//TODO: (optional) create a link that clears high scores
 
-
-
-
-
+//TODO: create function to end game (when timer reaches 0 or when all the questions are answered)
+//TODO: add event listener for "start quiz" button to start timer on click
+//TODO: add function to start button to show first question and answer selections
 
 var timerEl = document.querySelector(".scoreTimer");
 var countDownEl = document.getElementById("countDown");
@@ -19,99 +20,109 @@ var secondsLeft = 60;
 
 var startButton = document.querySelector(".startButton")
 
+var instructionsElement = document.getElementById("instructions");
+var questionContainerElement = document.getElementById("questionContainer");
 
-function startTimer() {
-  var timerInterval = setInterval(function() {
-    secondsLeft--;
-    timerEl.textContent = "Time: " + secondsLeft;
-
-    if(secondsLeft === 0) {
-      clearInterval(timerInterval);
-      endGame();
-//TODO: create if statement to end game function
-    }
-
-  }, 1000);
-}
-
-
-function endGame() {
-      
-}
-
-//TODO: add event listener for "start quiz" button to start timer on click 
-startButton.addEventListener("click", startTimer);
-
-
-
-
-var questions = [
+// array of questions and answers for the quiz
+var questionIndex = 0;
+var questionArray = [
     {
         question: "Commonly used data types DO Not Include:",
-        answers: [
-            {text: "strings", correct: false},
-            {text: "booleans", correct: false},
-            {text: "alerts", correct: true},
-            {text: "numbers", correct: false},
-        ] 
+        answers: ["strings", "booleans", "alerts", "numbers"],
+        correctAnswer: "alerts"
     },
     {
         question: "The condition in an if / else statement is enclosed with __________.",
-        answers: [
-            {text: "quotes", correct: false},
-            {text: "curly brackets", correct: true},
-            {text: "parenthesis", correct: false},
-            {text: "square brackets", correct: false},
-        ] 
+        answers: ["quotes", "curly brackets", "parenthesis", "square brackets"],
+        correctAnswer: "curly brackets"
     }, 
     {  
         question: "Arrays in JavaScript can be used to store __________.",
-        answers: [
-            {text: "numbers and strings", correct: false},
-            {text: "other arrays", correct: false},
-            {text: "booleans", correct: false},
-            {text: "all of the above ", correct: true}, 
-        ] 
+        answers: ["numbers and strings", "other arrays", "booleans", "all of the above"],
+        correctAnswer: "all of the above"
     },
     {
         question: "String values must be enclosed within __________ when being assigned to variables.",
-        answers: [
-            {text: "commas", correct: false},
-            {text: "curly brackets", correct: false},
-            {text: "quotes", correct: true},
-            {text: "parenthesis", correct: false}, 
-        ] 
+        answers: ["commas", "curly brackets", "quotes", "parenthesis"],
+        correctAnswer: "quotes"
     },
     {
         question: "A very useful tool used during development and debugging for printing content to the debugger is:",
-        answers: [
-            {text: "JavaScript", correct: false},
-            {text: "terminal/bash", correct: false},
-            {text: "for loops", correct: false},
-            {text: "console.log", correct: true},
-        ]
+        answers: ["JavaScript", "terminal/bash", "for loops", "console.log"],
+        correctAnswer: "console.log"
     }
-] 
+];
 
-var currentQuestionIndex = 0;
-var score = 60;
+
+startButton.addEventListener("click", startQuiz);
+
+instructionsElement.classList.remove("hide");
+
 
 function startQuiz() {
-    currentQuestionIndex = 0;
-    score = 60;
-    showQuestion();
+    currentQuestion = 0;
+    startTimer();
+    instructionsElement.classList.add("hide");
+    questionIndex = 0;
+    setNextQuestion();
 }
 
-function showQuestion() {
-    var currentQuestion = questions[currentQuestionIndex];
-    var questionNumber = currentQuestionIndex +1;
-    questionElement.innerHTML = questionNumber + ". " + currentQuestion.question;
-    currentQuestion.answers.forEach(answer => {
+function startTimer() {
+
+    var secondsLeft = 60;
+    var timerInterval = setInterval(function() { 
+        secondsLeft--;
+        timerEl.textContent = "Time: " + secondsLeft;
+
+
+    
+    if (secondsLeft === 0) {
+        clearInterval(timerInterval);
+        endQuiz();
+    }
+
+  }, 1000);
+   
+}
+
+var questionContainerElement = document.getElementById("questionContainer")
+var answerContainerElement = document.getElementById("answerContainer")
+var answerTextContainerElement = document.getElementById("answerTextContainer")
+
+function setNextQuestion() {
+
+    document.querySelector("#questionContainer").innerHTML = questionArray[currentQuestion]["question"];
+ 
+    if (currentQuestion < 5) {
+        for (var index = 0; index < questionArray[currentQuestion]["answers"].length; index++) {
+            var answerButton = document.createElement("button");
+            answerButton.textContent = questionArray[currentQuestion]["answers"][index];
+            answerButton.className = "answerChoice";
+            questionContainerElement.appendChild(answerButton); 
+    }
+
+    document.querySelectorAll(".answerChoice").forEach(item => {
+        item.addEventListener("click", event => {
+        if (event.target.innerHTML == questionArray[currentQuestion].correctAnswer) {
+            answerText = "Correct!";
+        }
+        else {
+            answerText = "Incorrect!";
+            countDownEl -= 10;
+        }
+
+        currentQuestion = currentQuestion +1;
+        answerTextContainer.textContent = answerText;
         
-        var button = document.createElement("answerButtons");
-        button.innerHTML = answer.text;
-        button.classList.add("banswerButton");
-        answerButton.appendChild(button);
+        if (currentQuestion >= 5) {
+            endQuiz();
+        }
+
+        else {
+            setNextQuestion();
+        }
+        }
+        )
     })
 }
-
+}
