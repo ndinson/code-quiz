@@ -67,19 +67,23 @@ function startQuiz() {
     setNextQuestion();
 }
 
-function startTimer() {
+function startTimer() {    
 
-    var secondsLeft = 60;
+        secondsLeft = 60;
+
     var timerInterval = setInterval(function() { 
         secondsLeft--;
-        timerEl.textContent = "Time: " + secondsLeft;
+        timerEl.textContent = "Timer: " + secondsLeft + " Second(s)";  
 
-
-    
     if (secondsLeft === 0) {
         clearInterval(timerInterval);
         endQuiz();
     }
+
+    if (currentQuestion >= 5) {
+        clearInterval(timerInterval);
+        endQuiz();
+    }    
 
   }, 1000);
    
@@ -108,7 +112,7 @@ function setNextQuestion() {
         }
         else {
             answerText = "Incorrect!";
-            countDownEl -= 10;
+            secondsLeft = secondsLeft - 10;
         }
 
         currentQuestion = currentQuestion +1;
@@ -126,3 +130,43 @@ function setNextQuestion() {
     })
 }
 }
+
+var finalScoreElement = document.getElementById("finalScore")
+
+function endQuiz() {
+
+    document.querySelector("#questionContainer").innerHTML = "Game Over!"
+    document.querySelector("#answerTextContainer").innerHTML = ""
+    finalScoreElement.innerHTML = "Your Score Is: " + secondsLeft; 
+    timerEl.textContent = "Time Is Up!";
+
+    if (secondsLeft < 0) {
+        finalScoreElement.innerHTML = "Your Score Is: " + 0;
+    }
+
+}
+
+function enterInitials() {
+    var userInitials = document.getElementById("userInput").value;
+    var userScore = secondsLeft
+    
+    if (secondsLeft < 0) {
+        userScore = 0;
+    }
+
+    
+    answerContainer = "High Scores";
+    answerContainer.textContent = userInitials + " - " + userScore;
+
+    answerTextContainer.innerHTML = "";
+
+    var backButtonElement = document.getElementById("goBack")
+    backButtonElement.classList.remove("hide")
+    backButtonElement.textContent = "Go Back"
+    backButtonElement.addEventListener("onclick", "goBack()");
+
+
+    
+    
+}
+
