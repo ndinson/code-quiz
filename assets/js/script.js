@@ -2,17 +2,16 @@
     //TODO: start button must start a timer
     //TODO: start button must present a question
 //TODO: present another question when user answers the previous one
-
 //TODO: when the timer reaches 0 then the game is over
 //TODO: when all the questions are answered then the game is over
 //TODO: display score at end
 //TODO: create input that user can save his/her initials and score 
 //TODO: create function that subtracts ten seconds from score/ timer when answer is wrong
 //TODO: (optional) create a link that clears high scores
-
 //TODO: create function to end game (when timer reaches 0 or when all the questions are answered)
 //TODO: add event listener for "start quiz" button to start timer on click
-//TODO: add function to start button to show first question and answer selections
+
+// global variables
 
 var timerEl = document.querySelector(".scoreTimer");
 var countDownEl = document.getElementById("countDown");
@@ -24,6 +23,7 @@ var instructionsElement = document.getElementById("instructions");
 var questionContainerElement = document.getElementById("questionContainer");
 
 // array of questions and answers for the quiz
+
 var questionIndex = 0;
 var questionArray = [
     {
@@ -53,11 +53,10 @@ var questionArray = [
     }
 ];
 
+// functions to start quiz
 
 startButton.addEventListener("click", startQuiz);
-
 instructionsElement.classList.remove("hide");
-
 
 function startQuiz() {
     currentQuestion = 0;
@@ -67,6 +66,8 @@ function startQuiz() {
     setNextQuestion();
 }
 
+// function to start timer when start quiz button is clicked
+
 function startTimer() {    
 
         secondsLeft = 60;
@@ -74,6 +75,8 @@ function startTimer() {
     var timerInterval = setInterval(function() { 
         secondsLeft--;
         timerEl.textContent = "Timer: " + secondsLeft + " Second(s)";  
+
+// timer will stop when reaching 0 or when all questions are answered
 
     if (secondsLeft === 0) {
         clearInterval(timerInterval);
@@ -93,6 +96,8 @@ var questionContainerElement = document.getElementById("questionContainer")
 var answerContainerElement = document.getElementById("answerContainer")
 var answerTextContainerElement = document.getElementById("answerTextContainer")
 
+// displays question with its set of answers for user to select
+
 function setNextQuestion() {
 
     document.querySelector("#questionContainer").innerHTML = questionArray[currentQuestion]["question"];
@@ -105,33 +110,40 @@ function setNextQuestion() {
             questionContainerElement.appendChild(answerButton); 
     }
 
+// when user clicks answer choices, will let them know if correct and if wrong, will deduct 10 seconds off time
     document.querySelectorAll(".answerChoice").forEach(item => {
         item.addEventListener("click", event => {
-        if (event.target.innerHTML == questionArray[currentQuestion].correctAnswer) {
+            
+            if (event.target.innerHTML == questionArray[currentQuestion].correctAnswer) {
             answerText = "Correct!";
-        }
-        else {
-            answerText = "Incorrect!";
+            }
+            else {
+            answerText = "Wrong!";
             secondsLeft = secondsLeft - 10;
-        }
+            }
 
-        currentQuestion = currentQuestion +1;
-        answerTextContainer.textContent = answerText;
+            currentQuestion = currentQuestion +1;
+            answerTextContainer.textContent = answerText;
+
+// next question will be set or quiz will end if the last question is answered
+
+            if (currentQuestion >= 5) {
+                endQuiz();
+                userForm();
+            }
+
+            else {
+                setNextQuestion();
+            }
         
-        if (currentQuestion >= 5) {
-            endQuiz();
-        }
-
-        else {
-            setNextQuestion();
-        }
-        }
-        )
-    })
-}
+            }
+        )}
+    )}
 }
 
 var finalScoreElement = document.getElementById("finalScore")
+
+// 
 
 function endQuiz() {
 
@@ -140,33 +152,71 @@ function endQuiz() {
     finalScoreElement.innerHTML = "Your Score Is: " + secondsLeft; 
     timerEl.textContent = "Time Is Up!";
 
+    
+
     if (secondsLeft < 0) {
         finalScoreElement.innerHTML = "Your Score Is: " + 0;
     }
-
-}
-
-function enterInitials() {
-    var userInitials = document.getElementById("userInput").value;
-    var userScore = secondsLeft
     
     if (secondsLeft < 0) {
         userScore = 0;
     }
 
-    
-    answerContainer = "High Scores";
-    answerContainer.textContent = userInitials + " - " + userScore;
-
-    answerTextContainer.innerHTML = "";
-
-    var backButtonElement = document.getElementById("goBack")
-    backButtonElement.classList.remove("hide")
-    backButtonElement.textContent = "Go Back"
-    backButtonElement.addEventListener("onclick", "goBack()");
-
-
-    
-    
 }
+
+var scorePageElement = document.getElementById("scorePage")
+var saveButtonElement = document.getElementById("saveButton")
+var backButtonElement = document.getElementById("goBack")
+var clearScoreElement = document.getElementById("clearScores")
+var initialsText = document.getElementById("initials")
+
+
+function userForm() {   
+
+scorePageElement.classList.remove("hide")
+saveButtonElement.classList.remove("hide")
+
+saveButtonElement.onclick = () => {
+    var initials = initialsText.value
+    var userData = {
+        initialsText: initials,
+        score: secondsLeft
+    }
+
+    localStorage.setItem((localStorage.length+1), JSON.stringify(userData));
+        initials.value = ""
+     
+        
+    }
+   
+     // go back to start of quiz
+     backButtonElement.classList.remove("hide")
+     document.getElementById("goBack").addEventListener("click", () => {
+        history.back();     
+     })
+     
+     
+    // clear score function
+    clearScoreElement.classList.remove("hide")
+    clearScoreElement.addEventListener("click", localStorage.clear())
+   
+    
+    // view score list
+    function viewHighScores() {
+}
+
+}
+
+
+
+
+
+  
+   
+
+
+  
+
+
+
 

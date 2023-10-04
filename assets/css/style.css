@@ -2,6 +2,113 @@
   display: none;
 }
 
-.answerChoice {
 
+.highScores {
+  display: block;
+  width: 20%;
+  border-style: solid;
+  font-size: 20px;
+  text-align: center;
+  color: white;
+  background-color: darkslateblue;
+
+}
+
+.codeQuiz {
+  display: block;
+  width: 75%;
+  font-size: 50px;
+  font-style: bolder;
+  border-style: solid;
+  border-color: darkblue;
+  background-color: lightskyblue;
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+}
+
+.startButton {
+  color: white;
+  background-color: darkslateblue;
+}
+
+p {
+  display: block;
+  width: 75%;
+  font-size: 25px;
+  border-style: solid;
+  border-color: darkblue;
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+}
+
+#questionContainer {
+  display: block;
+  width: 75%;
+  font-style: bolder;
+  font-size: 50px;
+  margin: auto;
+  padding: 100px;
+  text-align: left;
+}
+
+.answerChoice {
+  display: inline-block;
+  flex-wrap: wrap;
+  border-style: solid;
+  margin: auto;
+  font-size: 40px;
+  width: 50%;
+  height: 20%;
+  padding: 50px;
+  justify-content: center;
+  color: white;
+  background-color: darkslateblue;
+}
+
+#answerTextContainer {
+  display: block;
+  width: 100%;
+  margin: auto;
+  text-align: center;
+  font-size: 50px;
+  color: lightcoral
+
+}
+
+.scoreTimer {
+  display: block;
+  width: 100%;
+  padding: 20px;
+  font-size: 50px;
+  justify-content: center;
+  text-align: center;
+  color: lightcoral;
+}
+
+#finalScore {
+  color: white;
+  background-color: darkslateblue;
+}
+
+/* buttons
+--------------------*/
+
+#goBack {
+  color: white;
+  background-color: darkslateblue;
+  size: 50x;
+}
+
+#clearScores {
+  color: white;
+  background-color: darkslateblue;
+  size: 50px;
+}
+
+#saveButton {
+  color: white;
+  background-color: darkslateblue;
+  size: 50px;
 }
