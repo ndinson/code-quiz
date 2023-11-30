@@ -13,7 +13,7 @@
 
         <header>
           
-            <button class="highScores">View High Scores</button>
+            <button id="viewScores">View Scores</button>
             <div class="scoreTimer"></div>
             <div id="countDown"></div>
 
@@ -25,7 +25,7 @@
 
                 <div id="instructions" class="hide">    
                 <div class="codeQuiz">Coding Quiz Challenge</div>
-                    <p>
+                    <p id="instructionsText">
                         Try to answer the following code-related questions within the time limit.<br>
                         Keep in mind that incorrect answers will penalize your score/ time by ten seconds!
                     </p>
@@ -53,15 +53,21 @@
 
             <section>
 
-                <div id="scorePage" class="hide"> 
-                    <div>Enter Your Initials: </div>
-                        <input type="text" id="initials"></input>
-                        <button id ="saveButton">Save</button>
+                <div id="scorePage" class="hide"><br>
+                    <div id="initialsTag">Enter Your Initials: </div>
+                        <input type="text" id="initials"></input><br><br>
+                        <button id ="saveButton">Save</button><br><br>
+                        <div id= "scoreList" class="hide">
+                            <p id="list">Your Score Has Been Saved!</p> 
+                            <li id="user-data"></li>
+                        </div>    
                 </div>
-
-                <button id="goBack" class="hide">Go Back</button>
-                <button id="clearScores" class="hide">Clear High Scores</button>
-
+                
+                <div class="clearBack">
+                    <button id="goBack" class="hide">Go Back</button>
+                    <button id="clearScores" class="hide">Clear Scores</button>
+                </div>
+            
             </section>
 
         </main>
