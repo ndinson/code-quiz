@@ -172,7 +172,7 @@ saveButtonElement.addEventListener ("click", function() {
 function saveLastScore() {    
     var initialsInput = document.querySelector("#initials")
     if (initialsInput === "") {
-        initialsInput = alert("Please Enter Initials!");
+       window.initialsInput.alert("Please Enter Initials!");
     }
 
     else {
@@ -181,7 +181,7 @@ function saveLastScore() {
         score: userScore
         }
         
-        localStorage.setItem("userData", JSON.stringify(userData));
+        localStorage.setItem("userData", JSON.stringify(userData))
         }
     }
 function renderScores() {
@@ -200,6 +200,7 @@ function renderScores() {
     clearScoreElement.classList.remove("hide");
     clearScoreElement.addEventListener("click", () => {
     localStorage.clear();
+    document.querySelector("#user-data").innerHTML="";
     })
 
 
@@ -226,10 +227,16 @@ function renderScores() {
        document.querySelector("#initialsTag").classList.add("hide");
        document.querySelector("input").classList.add("hide");
        document.querySelector("#saveButton").classList.add("hide");
-       listElement.classList.add("hide");
+       scoreListElement.classList.remove("hide");
+       listElement.classList.remove("hide");
        listElement.innerHTML = "Score List";
-       finalScoreElement.innerHTML = "Score List";
+       document.querySelector("#user-data").classList.remove("hide");
+       finalScoreElement.classList.add("hide");
+
+
+       var lastScore = JSON.parse(localStorage.getItem("userData"));
        document.getElementById("user-data").innerHTML = lastScore.initials + " - " + lastScore.score + " Points";
+
 });
 
 
