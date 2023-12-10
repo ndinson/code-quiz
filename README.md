@@ -24,7 +24,15 @@ Deploy repository containing index.html, README.md, and assets folder (containin
 
 The deployed application can be used through a desktop web browser.
 
-The following images shows the up to date appearance and functionality of the Code Quiz application.
+The following images show the up to date appearance and functionality of the Code Quiz application:
+
+![Alt text](<assets/images/Code Quiz - Instructions.png>)
+
+![Alt text](<assets/images/Code Quiz - Questions.png>)
+
+![Alt text](<assets/images/Code Quiz - User Input.png>)
+
+![Alt text](<assets/images/Code Quiz - Score Page.png>)
 
 ## Credits
 
