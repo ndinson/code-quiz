@@ -16,6 +16,10 @@ Upon starting the quiz, users are prompted with a series of questions. Once the 
 
 ## Links
 
+Deployed Website: https://ndinson.github.io/code-quiz/
+
+GitHub Code Repository: https://github.com/ndinson/code-quiz
+
 ## Installation
 
 Deploy repository containing index.html, README.md, and assets folder (containing CSS and image files) to a web server.
